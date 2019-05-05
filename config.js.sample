@@ -1,0 +1,6 @@
+module.exports = {
+	username: 'sample@domain.com',
+	password: '123',
+	clientID: 'id',
+	clientSecret: 'secret'
+};

@@ -1,0 +1,19 @@
+{
+  "name": "pixiv.js",
+  "version": "1.0.0",
+  "description": "Basic wrapper and utility module for the pixiv API",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test.js"
+  },
+  "repository": "https://github.com/Lewdcario/pixiv.js.git",
+  "author": "Lewdcario <isabellafj97@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "node-fetch": "^2.5.0"
+  },
+  "devDependencies": {
+    "mocha": "^6.1.4"
+  }
+}
