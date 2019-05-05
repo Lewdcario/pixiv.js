@@ -4,7 +4,7 @@
   "description": "Basic wrapper and utility module for the pixiv API",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test.js"
+    "test": "mocha test/test.js"
   },
   "repository": "https://github.com/Lewdcario/pixiv.js.git",
   "author": "Lewdcario <isabellafj97@gmail.com>",

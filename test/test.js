@@ -1,5 +1,5 @@
-const settings = require('./config');
-const Pixiv = require('./index');
+const settings = require('../config');
+const Pixiv = require('../index');
 const assert = require('assert');
 
 describe('Pixiv', function () {
