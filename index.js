@@ -7,8 +7,6 @@ const headers = {
 	'content-type': 'application/x-www-form-urlencoded'
 };
 
-const { username, password } = require('./config');
-
 /**
  * Pixiv class
  */
@@ -47,8 +45,9 @@ class Pixiv {
 		/**
 		 * API access token
 		 * @type {?string}
+		 * @private
 		 */
-		this.accessToken = null;
+		this._accessToken = null;
 
 		if (!this.username || !this.password) {
 			throw Error('Username and password required');
@@ -115,8 +114,8 @@ class Pixiv {
 			client_id: this.clientID,
 			client_secret: this.clientSecret,
 			get_secure_url: 1,
-			username,
-			password,
+			username: this.username,
+			password: this.password,
 			grant_type: 'password'
 		};
 
@@ -127,11 +126,11 @@ class Pixiv {
 		}).then(r => r.json());
 
 		if (body.has_error) throw Error(body.errors.system.message);
-		this.accessToken = body.response.access_token;
+		this._accessToken = body.response.access_token;
 	}
 
 	async _request(path, method, data) {
-		if (!this.accessToken) await this._authenticate();
+		if (!this._accessToken) await this._authenticate();
 
 		const url = new URL(`${BASE_URL}${path}`);
 		if (data.params) {
@@ -141,7 +140,7 @@ class Pixiv {
 		const res = await fetch(url, {
 			method,
 			body: data.options && stringify(data.options),
-			headers: Object.assign(headers, { 'authorization': `Bearer ${this.accessToken}` })
+			headers: Object.assign(headers, { 'authorization': `Bearer ${this._accessToken}` })
 		});
 
 		const contentType = res.headers.get('content-type');
