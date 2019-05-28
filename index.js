@@ -147,7 +147,10 @@ class Pixiv {
 		if (contentType && contentType.indexOf('application/json') !== -1) {
 			const body = await res.json();
 			if (body.has_error) throw Error(body.errors.system.message);
-			if (body.error) throw Error(body.error.user_message);
+			if (body.error) {
+				if (body.error.message.includes('OAuth')) return this._authenticate().then(() => this._request(path, method, data));
+				else throw Error(body.error.user_message || body.error.message);
+			}
 			return body;
 		}
 
