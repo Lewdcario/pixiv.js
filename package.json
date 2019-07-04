@@ -1,9 +1,9 @@
 {
   "name": "pixiv.js",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Basic wrapper and utility module for the pixiv API",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "yarn build && mocha ./dist/test/test.js",
     "build": "rm -rf dist && tsc -t ES6 -m commonjs",
