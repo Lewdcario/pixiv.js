@@ -1,12 +1,13 @@
 {
   "name": "pixiv.js",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Basic wrapper and utility module for the pixiv API",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "yarn build && mocha ./dist/test/test.js",
     "build": "rm -rf dist && tsc -t ES6 -m commonjs",
+    "prepare": "yarn build",
     "lint": "tslint -p tsconfig.json",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\""
   },
