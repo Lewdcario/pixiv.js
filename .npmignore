@@ -1,2 +1,7 @@
-# Typescript
-dist/
+sdist/test/
+src/
+node_modules/
+tsconfig.json
+tslint.json
+.prettierrc
+config.js.sample
