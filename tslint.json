@@ -1,0 +1,30 @@
+{
+	"extends": [
+		"tslint:recommended"
+	],
+	"rules": {
+		"interface-over-type-literal": false,
+		"variable-name": false,
+		"indent": true,
+		"space-before-function-paren": false,
+		"whitespace": false,
+		"no-trailing-whitespace": true,
+		"no-irregular-whitespace": true,
+		"curly": false,
+		"trailing-comma": false,
+		"quotemark": {
+			"options": "single"
+		}
+	},
+	"jsRules": {
+		"no-console": true,
+		"prefer-const": true,
+		"prefer-template": true,
+		"trailing-comma": false
+	},
+	"linterOptions": {
+		"exclude": [
+			"./src/test/"
+		]
+	}
+}

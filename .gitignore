@@ -60,5 +60,8 @@ jspm_packages/
 # next.js build output
 .next
 
+# Typescript
+dist/
+
 # Other
-config.js
+config.ts

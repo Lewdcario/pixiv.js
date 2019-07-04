@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"outDir": "./dist/",
+		"declaration": true,
+		"sourceMap": true,
+		"target": "es2016",
+		"strict": true
+	},
+	"compileOnSave": true,
+	"include": [
+		"src/**/*"
+	],
+	"exclude": [
+		"node_modules"
+	]
+}
