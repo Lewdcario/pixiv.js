@@ -1,4 +1,4 @@
-sdist/test/
+dist/test/
 src/
 node_modules/
 tsconfig.json
