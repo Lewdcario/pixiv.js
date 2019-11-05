@@ -1,3 +1,4 @@
+import * as crypto from 'crypto';
 import fetch from 'node-fetch';
 import * as querystring from 'querystring';
 
@@ -88,10 +89,11 @@ export type PixivIllustrationList = {
 	next_url: string;
 };
 
+const HASH = '28c1fdd170a5204386cb1313c7077b34f83e4aaf4aa829ce78c231e05b0bae2c';
 const BASE_URL = 'https://app-api.pixiv.net';
-const headers = {
-	'accept-type': 'application/json',
-	'content-type': 'application/x-www-form-urlencoded',
+const BASE_HEADERS = {
+	'Accept-Type': 'application/json',
+	'Content-Type': 'application/x-www-form-urlencoded'
 };
 
 /**
@@ -180,6 +182,28 @@ class Pixiv {
 			username: this.username
 		};
 
+		// Credit: https://github.com/akameco/pixiv-app-api/blob/master/src/index.ts
+		const now_time = new Date();
+		const local_time = `${now_time.getUTCFullYear()}-${now_time.getUTCMonth() +
+			1}-${now_time.getUTCDate()}T${now_time
+				.getUTCHours()
+				.toString()
+				.padStart(2, '0')}:${now_time
+					.getUTCMinutes()
+					.toString()
+					.padStart(2, '0')}:${now_time
+						.getUTCSeconds()
+						.toString()
+						.padStart(2, '0')}+00:00`;
+
+		const headers = Object.assign(BASE_HEADERS, {
+			'X-Client-Hash': crypto
+				.createHash('md5')
+				.update(Buffer.from(`${local_time}${HASH}`, 'utf8'))
+				.digest('hex'),
+			'X-Client-Time': local_time
+		});
+
 		const body = await fetch('https://oauth.secure.pixiv.net/auth/token', {
 			body: querystring.stringify(data),
 			headers,
@@ -200,7 +224,7 @@ class Pixiv {
 
 		const res = await fetch(url as any, {
 			body: data && data.options && querystring.stringify(data.options),
-			headers: Object.assign(headers, { authorization: `Bearer ${this._accessToken}` }),
+			headers: Object.assign(BASE_HEADERS, { authorization: `Bearer ${this._accessToken}` }),
 			method
 		});
 
@@ -213,7 +237,9 @@ class Pixiv {
 				if (body.error.message.includes('OAuth')) {
 					return this._authenticate().then(() => this._request(path, method, data));
 				}
-				else throw Error(body.error.user_message || body.error.message);
+				else {
+					throw Error(body.error.user_message || body.error.message);
+				}
 			}
 			return body;
 		}
